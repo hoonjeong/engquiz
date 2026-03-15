@@ -593,6 +593,21 @@ body { font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif; b
 
   window.nextSet = function() {
     if (state.currentSetIdx < state.sets.length - 1) {
+      // Auto-check answers before moving to next set
+      if (!state.revealed[state.currentSetIdx]) {
+        const set = state.sets[state.currentSetIdx];
+        set.questions.forEach((q, qi) => {
+          const key = `${state.currentSetIdx}_${qi}`;
+          if (state.results[key] === undefined) {
+            const selected = state.answers[key];
+            state.results[key] = selected ? selected === q.answer : false;
+          }
+        });
+        state.revealed[state.currentSetIdx] = true;
+        render();
+        window.scrollTo(0, 0);
+        return; // Show results first, user clicks next again to proceed
+      }
       state.currentSetIdx++;
       render();
       window.scrollTo(0, 0);
