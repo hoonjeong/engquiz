@@ -1325,10 +1325,10 @@ HCF 정보에서 "Applications... must be submitted on the HCF's Web site(신청
 **[정답] (B)**
 
 193. What is the purpose of the letter? 
-(A) To invite Mr. Ross to a meeting (B) To solicit a donation to the organization  (주의: 실제 내용은 보조금 지급 통보임. 선택지 오류 가능성)
-*(다시 확인)* (A) To invite Mr. Ross to a meeting 
-(C) To persuade Mr. Ross to construct a playground 
-(D) To explain the grant application procedures 
+(A) To invite Mr. Ross to a meeting
+(B) To notify Mr. Ross of a grant award
+(C) To persuade Mr. Ross to construct a playground
+(D) To explain the grant application procedures
 
 **[해설]**
 편지는 보조금 지급 사실을 알리며, 세부 사항 논의를 위해 사무실로 방문(come to our office to discuss the plan)해달라고 요청하고 있습니다.  따라서 미팅에 초대하는 (A)가 가장 적절한 목적입니다.

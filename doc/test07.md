@@ -1582,7 +1582,12 @@ Send order to: Tasnim Rhodes, Grants Ltd. (12 Crabtree Lane, Cheltenham G121 UK)
 After one week of your order being placed, one of our design team will contact you via e-mail. They will attach a digital copy of the images that you have chosen for your orders. Please confirm these designs and inform us of any changes. We will not go ahead with the order unless we receive confirmation that all images are correct. Remember to complete the order form and return it with your individual and company details as well as your company logo. 
 
 **[Order Form]**
-(주문 내역 요약: 컴퓨터 20개(로고 AD7), 편지지 500개(로고 GK3), 명함 100개(로고 HL4), 마우스 30개(로고 WT4)) 
+| Item | Quantity | Logo |
+|------|----------|------|
+| Computers | 20 | AD7 |
+| Letterhead | 500 | GK3 |
+| Business Cards | 100 | HL4 |
+| Mice | 30 | WT4 |
 
 **[E-mail]**
 To: Imogen Trainer / From: Tasnim Rhodes / Date: 26 January / Re: Order for Grants
@@ -1687,9 +1692,9 @@ According to a recent automotive study conducted by Doft Marketing Research, the
 
 **[Survey Results]**
 
-* 하이브리드 고려 고객: 2월 6% -> 3월 12%
-* SUV 고려 고객: 2월 35% -> 3월 40%
-* 세단 고려 고객: 2월 34% -> 3월 36% 
+* Customers considering hybrids: Feb 6% -> Mar 12%
+* Customers considering SUVs: Feb 35% -> Mar 40%
+* Customers considering sedans: Feb 34% -> Mar 36%
 
 
 
