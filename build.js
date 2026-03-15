@@ -169,8 +169,15 @@ function extractPassageAndTranslation(sectionText) {
   let passage = '';
   let passageTranslation = '';
 
-  // Find passage: from start to first [지문 해석] or first ---
-  const transMarkerIdx = sectionText.indexOf('[지문 해석]');
+  // Find passage: from start to first [지문 해석] or 지문 해석 header or first ---
+  let transMarkerIdx = sectionText.indexOf('[지문 해석]');
+  if (transMarkerIdx === -1) {
+    // Also match "### 지문 해석" or "지문 해석" as header
+    const headerMatch = sectionText.match(/^#{1,3}\s*\*?\*?\[?지문\s*해석\]?\*?\*?\s*$/m);
+    if (headerMatch) {
+      transMarkerIdx = sectionText.indexOf(headerMatch[0]);
+    }
+  }
   const firstSepIdx = sectionText.indexOf('\n---\n');
 
   if (transMarkerIdx !== -1) {
@@ -183,8 +190,11 @@ function extractPassageAndTranslation(sectionText) {
     }
     passage = sectionText.substring(0, passageEnd).trim();
 
-    // Translation: from after [지문 해석] to next ---
-    const transStart = transMarkerIdx + '[지문 해석]'.length;
+    // Translation: from after the translation marker line to next ---
+    // Find the end of the marker line
+    let transStart = sectionText.indexOf('\n', transMarkerIdx);
+    if (transStart === -1) transStart = transMarkerIdx + 10;
+    else transStart++; // skip the newline
     let transEnd = sectionText.indexOf('\n---\n', transStart);
     if (transEnd === -1) transEnd = sectionText.length;
     passageTranslation = sectionText.substring(transStart, transEnd).trim();

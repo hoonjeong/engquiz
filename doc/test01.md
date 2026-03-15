@@ -1582,127 +1582,101 @@ It is also very helpful to talk to someone about your concerns. Perhaps a close 
 
 ## PART 7
 
-**Questions 176-180 refer to the following advertisement and letter.**
-
-**Page Industries** **Posted: November 11** 
-
-Join one of the Northeast's largest and most dynamic companies. We're looking for team players! **Opportunity & Challenge:** We train and provide exciting career possibilities along with rapid advancement. **Hiring for full-time (days and nights) entry for experienced quality-control managers, assembly line workers, machine operators, material handlers, packers, and more!** **Benefits:** retirement plans, full health plans, paid vacation and holidays, various shifts, and built-in overtime **Pre-employment math test and interview required** 
-
-5830 Macmillan Street Norfolk, MA 93421 Call Human Resources (618) 431-3882 
-
----
-
-Page Industries 5830 Macmillan Street Norfolk, MA 93421 
-
-To whom it may concern, 
-
-Hello. I am writing this letter to your company after having seen your advertisement. I'm very interested in the position of quality-control manager. I am confident my years of extensive experience would benefit your firm. Over the last ten years, I have helped many manufacturing companies to become more competitive in cost and quality of products. I am especially adept at establishing procedures to improve the product quality and determining more cost-effective methods. I attached my résumé for your consideration and hope you give me an opportunity to interview in the near future.  Please contact me at 891-784-0653 if you have any questions. Thank you. 
-
-Billy Davis 
-112 Wish Street Cleo Apt. #2
-San Diego, CA 21354 
-
----
-
-### **[지문 해석]**
+## [Questions 176-180] Advertisement and Letter
 
 **Page Industries**
-**게시일: 11월 11일**
+Posted: November 11
 
-북동부에서 가장 크고 역동적인 회사 중 하나에 합류하세요. 저희는 팀 플레이어를 찾고 있습니다!
-**기회와 도전:** 저희는 교육을 제공하며 빠른 승진과 함께 흥미로운 커리어 가능성을 제공합니다.
-**채용 분야:** 숙련된 품질 관리 매니저, 조립 라인 작업자, 기계 조작원, 자재 처리원, 포장원 등 전일제(주간 및 야간) 신입 및 경력직 채용!
-**복리후생:** 퇴직 연금, 종합 의료 보험, 유급 휴가 및 공휴일, 다양한 교대 근무, 수당이 포함된 초과 근무
-**채용 전 수학 시험 및 면접 필수**
+Join one of the Northeast's largest and most dynamic companies. We're looking for team players! **Opportunity & Challenge:** We train and provide exciting career possibilities along with rapid advancement. Hiring for full-time (days and nights) entry for experienced quality-control managers, assembly line workers, machine operators, material handlers, packers, and more! **Benefits:** retirement plans, full health plans, paid vacation and holidays, various shifts, and built-in overtime Pre-employment math test and interview required
 
-마밀란가 5830번지
-매사추세츠주 노퍽 93421
-인사과 전화번호: (618) 431-3882
+5830 Macmillan Street Norfolk, MA 93421 Call Human Resources (618) 431-3882
 
 ---
 
-Page Industries
-마밀란가 5830번지
-매사추세츠주 노퍽 93421
+Page Industries 5830 Macmillan Street Norfolk, MA 93421
 
+To whom it may concern,
+
+Hello. I am writing this letter to your company after having seen your advertisement. I'm very interested in the position of quality-control manager. I am confident my years of extensive experience would benefit your firm. Over the last ten years, I have helped many manufacturing companies to become more competitive in cost and quality of products. I am especially adept at establishing procedures to improve the product quality and determining more cost-effective methods. I attached my résumé for your consideration and hope you give me an opportunity to interview in the near future. Please contact me at 891-784-0653 if you have any questions. Thank you.
+
+Billy Davis
+112 Wish Street Cleo Apt. #2 San Diego, CA 21354
+
+---
+
+### 지문 해석
+
+**[광고]**
+**Page Industries**
+게시일: 11월 11일
+
+동북부에서 가장 크고 역동적인 회사 중 하나에 합류하세요. 우리는 팀 플레이어를 찾고 있습니다! **기회와 도전:** 당사는 교육을 제공하며 빠른 승진과 함께 흥미로운 경력 가능성을 제공합니다. 경력직 품질 관리 매니저, 조립 라인 작업자, 기계 조작원, 자재 취급자, 포장 공 등 풀타임(주간 및 야간) 신입 및 경력직 채용 중! **혜택:** 퇴직 연금, 종합 의료 보험, 유급 휴가 및 공휴일, 다양한 교대 근무 및 기본 시간 외 수당 채용 전 수학 시험 및 면접 필수
+
+**[편지]**
 관계자 귀하,
 
-안녕하세요. 귀사의 광고를 보고 이 편지를 씁니다. 저는 품질 관리 매니저 직책에 매우 관심이 있습니다. 저의 폭넓은 경력이 귀사에 도움이 될 것이라고 확신합니다. 지난 10년 동안 저는 많은 제조 회사들이 제품의 비용과 품질 면에서 더 경쟁력을 갖출 수 있도록 도왔습니다. 저는 특히 제품 품질을 개선하기 위한 절차를 수립하고 더 비용 효율적인 방법을 결정하는 데 능숙합니다. 검토를 위해 이력서를 첨부하였으며, 가까운 시일 내에 면접 기회를 주시기를 바랍니다. 질문이 있으시면 891-784-0653으로 연락해 주십시오. 감사합니다.
+안녕하세요. 귀사의 광고를 보고 이 편지를 쓰게 되었습니다. 저는 품질 관리 매니저 직책에 매우 관심이 많습니다. 저의 다년간의 폭넓은 경험이 귀사에 도움이 될 것이라고 확신합니다. 지난 10년 동안, 저는 많은 제조 회사들이 제품의 비용과 품질 측면에서 더 경쟁력을 갖출 수 있도록 도왔습니다. 저는 특히 제품 품질을 개선하기 위한 절차를 수립하고 더 비용 효율적인 방법을 결정하는 데 능숙합니다. 검토를 위해 이력서를 첨부하였으며, 가까운 시일 내에 면접 기회를 주시기를 희망합니다. 질문이 있으시면 891-784-0653으로 연락 주시기 바랍니다. 감사합니다.
 
-Billy Davis 올림
-샌디에이고 위시가 112번지 클레오 아파트 2호
-캘리포니아 21354
-
-이전 페이지에서 다룬 지문(Page Industries 채용 공고와 Billy Davis의 지원서)에 연결되는 문제들입니다. 
-
-### **[문제 및 해설]**
-
-176. What type of business is Page Industries? 
-
-(A) A publishing company 
-(B) A recruiting agency **(C) A manufacturer** 
-(D) An insurance company 
-
-* **정답: (C)**
-* 
-**해설:** 채용 공고에서 조립 라인 작업자(assembly line workers), 기계 조작원(machine operators), 포장원(packers) 등을 모집한다고 명시되어 있으며 , 지원자 Billy Davis가 지난 10년간 '제조 회사(manufacturing companies)'들을 도와왔다고 언급한 점으로 보아 Page Industries는 제조업체임을 알 수 있습니다. 
-
-
+빌리 데이비스
 
 ---
 
-177. In the advertisement, the word "advancement" in paragraph 1, line 4, is closest in meaning to 
+### 문제 및 해설
 
-(A) judgment **(B) promotion** 
-(C) availability 
-(D) evaluation 
+176. What type of business is Page Industries?
+(A) A publishing company
+(B) A recruiting agency
+(C) A manufacturer
+(D) An insurance company
 
-* **정답: (B)**
-* 
-**해설:** 공고문에서 'rapid advancement(빠른 발전/승진)'와 함께 커리어 가능성을 제공한다고 언급했습니다. 직장 내에서의 'advancement'는 지위나 직급의 상승을 의미하므로 '승진'을 뜻하는 `promotion`이 가장 적절한 동의어입니다. 
-
-
-
----
-
-178. What is the main purpose of the letter? 
-
-**(A) To get a job opportunity** 
-(B) To ask about the personnel policy 
-(C) To discuss the terms of a contract 
-(D) To schedule an interview 
-
-* **정답: (A)**
-* 
-**해설:** Billy Davis는 광고를 보고 특정 직책(quality-control manager)에 지원하기 위해 이 편지를 썼으며 , 면접 기회를 얻기를 희망하고 있으므로 취업 기회를 얻는 것이 주된 목적입니다. 
+* **[정답] (C)**
+*
+**[해설]** 편지 내용 중 "I have helped many manufacturing companies(많은 제조 회사들을 도왔다)"라는 언급과 광고에서 조립 라인 작업자(assembly line workers), 기계 조작원(machine operators) 등을 채용한다는 점을 통해 이 회사가 제조업체(manufacturer)임을 알 수 있습니다.
 
 
 
----
+177. In the advertisement, the word "advancement" in paragraph 1, line 4, is closest in meaning to
+(A) judgment
+(B) promotion
+(C) availability
+(D) evaluation
 
-179. What must Mr. Davis do before being hired? 
-
-(A) Provide proof of residence 
-(B) Go through a background check 
-(C) Take a medical check-up **(D) Pass a particular test** 
-
-* **정답: (D)**
-* 
-**해설:** 광고 하단에 채용 전 필수 사항으로 '수학 시험(math test)'과 면접이 명시되어 있으므로 , 고용되기 전에 특정 시험을 통과해야 합니다. 
+* **[정답] (B)**
+* **[해설]** 광고의 "rapid advancement"는 직장 내에서의 '빠른 승진'을 의미합니다. 따라서 '승진'이라는 뜻을 가진 promotion이 문맥상 가장 적절합니다.
 
 
 
----
+178. What is the main purpose of the letter?
+(A) To get a job opportunity
+(B) To ask about the personnel policy
+(C) To discuss the terms of a contract
+(D) To schedule an interview
 
-180. What did Mr. Davis enclose with the letter? 
+* **[정답] (A)**
+* **[해설]** Billy Davis는 광고를 보고 품질 관리 매니저 직책에 지원하기 위해 편지를 썼으며, 본인의 경력을 강조하고 이력서를 첨부했습니다. 따라서 전체적인 목적은 취업 기회를 얻기 위함(To get a job opportunity)입니다.
 
-(A) A letter of reference 
-(B) A completed application **(C) A copy of his résumé** 
-(D) An identification card 
 
-* **정답: (C)**
-* 
-**해설:** 편지의 마지막 부분에서 검토를 위해 '이력서(résumé)'를 첨부(attached)했다고 직접 언급하고 있습니다. 
+
+179. What must Mr. Davis do before being hired?
+(A) Provide proof of residence
+(B) Go through a background check
+(C) Take a medical check-up
+(D) Pass a particular test
+
+* **[정답] (D)**
+* **[해설]** 광고 하단에 "Pre-employment math test and interview required(채용 전 수학 시험 및 면접 필수)"라고 명시되어 있습니다. 따라서 채용 전 특정 시험(math test)을 통과해야 합니다.
+
+
+
+180. What did Mr. Davis enclose with the letter?
+(A) A letter of reference
+(B) A completed application
+(C) A copy of his résumé
+(D) An identification card
+
+* **[정답] (C)**
+*
+**[해설]** 편지 마지막 부분에 "I attached my résumé for your consideration(검토를 위해 이력서를 첨부했다)"라고 언급되어 있습니다.
 
 ## PART 7
 
