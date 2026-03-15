@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TOEIC RC Practice Test</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif; background: #f0f2f5; color: #1a1a2e; min-height: 100vh; }
+
+.container { max-width: 800px; margin: 0 auto; padding: 20px; }
+
+/* Header */
+.header { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 24px; border-radius: 16px; margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; }
+.header h1 { font-size: 1.5rem; font-weight: 700; }
+.header-btns { display: flex; gap: 8px; flex-wrap: wrap; }
+.btn { padding: 10px 20px; border: none; border-radius: 10px; font-size: 0.95rem; font-weight: 600; cursor: pointer; transition: all 0.2s; display: inline-flex; align-items: center; gap: 6px; }
+.btn:hover { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(0,0,0,0.15); }
+.btn:active { transform: translateY(0); }
+.btn-primary { background: #667eea; color: white; }
+.btn-secondary { background: white; color: #667eea; }
+.btn-success { background: #10b981; color: white; }
+.btn-warning { background: #f59e0b; color: white; }
+.btn-danger { background: #ef4444; color: white; }
+.btn-outline { background: transparent; color: white; border: 2px solid white; }
+.btn-lg { padding: 14px 32px; font-size: 1.1rem; }
+.btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+
+/* Card */
+.card { background: white; border-radius: 16px; padding: 28px; margin-bottom: 20px; box-shadow: 0 2px 12px rgba(0,0,0,0.06); }
+.card-title { font-size: 1.2rem; font-weight: 700; margin-bottom: 16px; color: #1a1a2e; }
+
+/* Selection Screen */
+.test-select { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin: 20px 0; }
+.test-option { padding: 24px; border: 3px solid #e2e8f0; border-radius: 14px; cursor: pointer; transition: all 0.2s; text-align: center; }
+.test-option:hover { border-color: #667eea; background: #f0f0ff; }
+.test-option.selected { border-color: #667eea; background: #eef2ff; }
+.test-option .test-label { font-size: 1.3rem; font-weight: 700; color: #667eea; }
+.test-option .test-count { font-size: 0.9rem; color: #64748b; margin-top: 4px; }
+.checkbox-mark { width: 24px; height: 24px; border: 2px solid #cbd5e1; border-radius: 6px; display: inline-block; margin-bottom: 8px; transition: all 0.2s; position: relative; }
+.test-option.selected .checkbox-mark { background: #667eea; border-color: #667eea; }
+.test-option.selected .checkbox-mark::after { content: '\2713'; color: white; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 14px; font-weight: bold; }
+
+/* Progress Bar */
+.progress-bar { background: #e2e8f0; border-radius: 10px; height: 8px; margin: 12px 0; overflow: hidden; }
+.progress-fill { background: linear-gradient(90deg, #667eea, #764ba2); height: 100%; border-radius: 10px; transition: width 0.5s ease; }
+.progress-text { font-size: 0.85rem; color: #64748b; text-align: right; margin-bottom: 4px; }
+
+/* Question */
+.passage-box { background: #f8f9ff; border-left: 4px solid #667eea; padding: 20px; border-radius: 0 12px 12px 0; margin-bottom: 20px; max-height: 400px; overflow-y: auto; font-size: 0.95rem; line-height: 1.7; white-space: pre-wrap; }
+.passage-box::-webkit-scrollbar { width: 6px; }
+.passage-box::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 3px; }
+.question-text { font-size: 1.1rem; line-height: 1.6; margin-bottom: 20px; font-weight: 500; }
+.question-num { display: inline-block; background: #667eea; color: white; padding: 4px 12px; border-radius: 8px; font-size: 0.85rem; font-weight: 700; margin-bottom: 12px; }
+.test-badge { display: inline-block; background: #f59e0b; color: white; padding: 4px 10px; border-radius: 8px; font-size: 0.8rem; font-weight: 600; margin-left: 8px; }
+
+/* Choices */
+.choices { display: flex; flex-direction: column; gap: 10px; margin-bottom: 20px; }
+.choice-btn { padding: 14px 18px; border: 2px solid #e2e8f0; border-radius: 12px; background: white; cursor: pointer; text-align: left; font-size: 1rem; transition: all 0.2s; display: flex; align-items: flex-start; gap: 12px; line-height: 1.5; }
+.choice-btn:hover { border-color: #667eea; background: #f8f9ff; }
+.choice-btn.selected { border-color: #667eea; background: #eef2ff; }
+.choice-btn.correct { border-color: #10b981; background: #ecfdf5; }
+.choice-btn.incorrect { border-color: #ef4444; background: #fef2f2; }
+.choice-btn.correct-answer { border-color: #10b981; background: #ecfdf5; }
+.choice-btn[disabled] { cursor: default; }
+.choice-letter { min-width: 28px; height: 28px; border-radius: 50%; background: #f1f5f9; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.85rem; color: #64748b; flex-shrink: 0; }
+.choice-btn.selected .choice-letter { background: #667eea; color: white; }
+.choice-btn.correct .choice-letter { background: #10b981; color: white; }
+.choice-btn.incorrect .choice-letter { background: #ef4444; color: white; }
+.choice-btn.correct-answer .choice-letter { background: #10b981; color: white; }
+
+/* Explanation */
+.explanation-box { background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 12px; padding: 20px; margin-top: 16px; display: none; }
+.explanation-box.show { display: block; }
+.explanation-box h4 { color: #166534; margin-bottom: 8px; font-size: 1rem; }
+.explanation-box p { color: #15803d; line-height: 1.7; font-size: 0.95rem; margin-bottom: 8px; }
+.explanation-box .translation { background: #f0f9ff; border: 1px solid #bae6fd; border-radius: 8px; padding: 14px; margin-top: 12px; color: #0369a1; font-size: 0.9rem; line-height: 1.7; white-space: pre-wrap; }
+.explanation-box .passage-trans { background: #fefce8; border: 1px solid #fde68a; border-radius: 8px; padding: 14px; margin-top: 12px; color: #854d0e; font-size: 0.9rem; line-height: 1.7; white-space: pre-wrap; }
+
+/* Action Buttons */
+.action-btns { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 16px; }
+
+/* Report */
+.report-card { text-align: center; }
+.report-score { font-size: 3rem; font-weight: 800; color: #667eea; margin: 20px 0; }
+.report-detail { font-size: 1.1rem; color: #64748b; margin-bottom: 20px; }
+.report-chart { display: flex; justify-content: center; gap: 40px; margin: 30px 0; }
+.report-stat { text-align: center; }
+.report-stat .num { font-size: 2rem; font-weight: 700; }
+.report-stat .label { font-size: 0.85rem; color: #64748b; }
+.report-stat.correct .num { color: #10b981; }
+.report-stat.incorrect .num { color: #ef4444; }
+
+/* History Report */
+.history-table { width: 100%; border-collapse: collapse; margin-top: 16px; }
+.history-table th, .history-table td { padding: 12px; text-align: center; border-bottom: 1px solid #e2e8f0; }
+.history-table th { background: #f8fafc; font-weight: 600; color: #475569; font-size: 0.85rem; }
+.history-table td { font-size: 0.95rem; }
+.score-badge { padding: 4px 12px; border-radius: 20px; font-weight: 600; font-size: 0.85rem; }
+.score-high { background: #ecfdf5; color: #166534; }
+.score-mid { background: #fefce8; color: #854d0e; }
+.score-low { background: #fef2f2; color: #991b1b; }
+
+/* Navigation */
+.nav-btns { display: flex; justify-content: space-between; margin-top: 20px; }
+
+/* Animations */
+@keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+.fade-in { animation: fadeIn 0.3s ease; }
+
+/* Responsive */
+@media (max-width: 600px) {
+  .container { padding: 12px; }
+  .header { padding: 16px; }
+  .header h1 { font-size: 1.2rem; }
+  .test-select { grid-template-columns: 1fr; }
+  .card { padding: 20px; }
+  .report-chart { gap: 20px; }
+  .btn { padding: 8px 16px; font-size: 0.85rem; }
+}
+</style>
+</head>
+<body>
+
+<div class="container" id="app">
+  <!-- Content rendered by JS -->
+</div>
+
+<script src="data.js"></script>
+<script>
+(function() {
+  'use strict';
+
+  const app = document.getElementById('app');
+  const STORAGE_KEY = 'toeic_quiz_history';
+
+  // State
+  let state = {
+    screen: 'select', // select, quiz, report, history
+    selectedTests: [],
+    sets: [],          // shuffled question sets for current quiz
+    currentSetIdx: 0,
+    answers: {},       // { setIdx_qIdx: 'A' }
+    results: {},       // { setIdx_qIdx: true/false }
+    revealed: {},      // { setIdx: true } if explanation shown
+    totalQuestions: 0,
+    isRetryMode: false,
+    wrongSets: [],
+  };
+
+  // Utility
+  function shuffle(arr) {
+    const a = [...arr];
+    for (let i = a.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [a[i], a[j]] = [a[j], a[i]];
+    }
+    return a;
+  }
+
+  function getHistory() {
+    try { return JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]'); }
+    catch { return []; }
+  }
+
+  function saveHistory(entry) {
+    const hist = getHistory();
+    hist.push(entry);
+    // Keep last 100 entries
+    if (hist.length > 100) hist.splice(0, hist.length - 100);
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(hist));
+  }
+
+  function escapeHtml(text) {
+    const div = document.createElement('div');
+    div.textContent = text;
+    return div.innerHTML;
+  }
+
+  function cleanMarkdown(text) {
+    if (!text) return '';
+    return text
+      .replace(/\$([^$]+)\$/g, '$1')  // Remove $ math markers
+      .replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>')
+      .replace(/\*([^*]+)\*/g, '<em>$1</em>')
+      .replace(/\[([^\]]+)\]\([^)]+\)/g, '$1')  // Remove markdown links
+      .replace(/^#+\s*/gm, '')  // Remove headers
+      .replace(/^\s*\*\s*/gm, '')  // Remove bullet markers
+      .trim();
+  }
+
+  function hasKoreanContent(text) {
+    if (!text) return false;
+    // Check if text has substantial Korean (more than just labels)
+    const koreanChars = (text.match(/[가-힣]/g) || []).length;
+    return koreanChars > 10;
+  }
+
+  // Render functions
+  function render() {
+    switch (state.screen) {
+      case 'select': renderSelect(); break;
+      case 'quiz': renderQuiz(); break;
+      case 'report': renderReport(); break;
+      case 'history': renderHistory(); break;
+    }
+  }
+
+  function renderSelect() {
+    const tests = Object.entries(QUIZ_DATA);
+    app.innerHTML = `
+      <div class="header">
+        <h1>TOEIC RC Practice</h1>
+        <div class="header-btns">
+          <button class="btn btn-outline" onclick="showHistory()">학습 리포트</button>
+        </div>
+      </div>
+      <div class="card fade-in">
+        <div class="card-title">회차를 선택하세요 (다중 선택 가능)</div>
+        <div class="test-select">
+          ${tests.map(([id, data]) => `
+            <div class="test-option ${state.selectedTests.includes(id) ? 'selected' : ''}"
+                 onclick="toggleTest('${id}')">
+              <div class="checkbox-mark"></div>
+              <div class="test-label">${data.label}</div>
+              <div class="test-count">${data.totalQuestions}문항</div>
+            </div>
+          `).join('')}
+        </div>
+        <div style="text-align:center; margin-top:24px;">
+          <button class="btn btn-primary btn-lg"
+                  onclick="startQuiz()"
+                  ${state.selectedTests.length === 0 ? 'disabled' : ''}>
+            테스트 시작 (${state.selectedTests.reduce((sum, id) => sum + QUIZ_DATA[id].totalQuestions, 0)}문항)
+          </button>
+        </div>
+      </div>
+    `;
+  }
+
+  function renderQuiz() {
+    const set = state.sets[state.currentSetIdx];
+    if (!set) return;
+
+    const isRevealed = state.revealed[state.currentSetIdx];
+
+    // Calculate progress
+    let answeredCount = 0;
+    let totalQ = 0;
+    state.sets.forEach((s, si) => {
+      s.questions.forEach((q, qi) => {
+        totalQ++;
+        if (state.results[`${si}_${qi}`] !== undefined) answeredCount++;
+      });
+    });
+
+    const progressPct = totalQ > 0 ? (answeredCount / totalQ * 100) : 0;
+    const currentQNum = state.sets.slice(0, state.currentSetIdx).reduce((sum, s) => sum + s.questions.length, 0) + 1;
+
+    // Get test label for this set
+    const testId = set.questions[0]?.testId || '';
+    const testLabel = QUIZ_DATA[testId]?.label || '';
+
+    app.innerHTML = `
+      <div class="header">
+        <h1>TOEIC RC Practice</h1>
+        <div class="header-btns">
+          <button class="btn btn-outline" onclick="confirmReset()">처음부터 풀기</button>
+        </div>
+      </div>
+      <div class="card fade-in">
+        <div class="progress-text">${answeredCount} / ${totalQ} 문항 완료 (세트 ${state.currentSetIdx + 1}/${state.sets.length})</div>
+        <div class="progress-bar"><div class="progress-fill" style="width:${progressPct}%"></div></div>
+      </div>
+      <div class="card fade-in">
+        ${set.passage ? `
+          <div class="passage-box">
+            ${hasKoreanContent(set.passage) ? '<div style="color:#f59e0b; font-size:0.8rem; margin-bottom:8px; font-weight:600;">[원문 데이터에 영어 지문이 포함되어 있지 않아 해석본으로 표시됩니다]</div>' : ''}
+            ${cleanMarkdown(set.passage)}
+          </div>
+        ` : ''}
+        ${set.questions.map((q, qi) => renderQuestion(q, qi, set, isRevealed)).join('')}
+        <div class="action-btns">
+          ${!isRevealed ? `
+            <button class="btn btn-success" onclick="checkAnswers()">정답 확인</button>
+            <button class="btn btn-warning" onclick="showExplanation()">해설 보기</button>
+          ` : ''}
+        </div>
+        ${isRevealed ? renderExplanations(set) : ''}
+      </div>
+      <div class="nav-btns">
+        <button class="btn btn-secondary" onclick="prevSet()" ${state.currentSetIdx === 0 ? 'disabled' : ''}>이전</button>
+        ${state.currentSetIdx < state.sets.length - 1
+          ? `<button class="btn btn-primary" onclick="nextSet()">다음</button>`
+          : `<button class="btn btn-success" onclick="finishQuiz()">결과 보기</button>`
+        }
+      </div>
+    `;
+  }
+
+  function renderQuestion(q, qi, set, isRevealed) {
+    const key = `${state.currentSetIdx}_${qi}`;
+    const selectedAnswer = state.answers[key];
+    const result = state.results[key];
+    const testId = q.testId || '';
+    const testLabel = QUIZ_DATA[testId]?.label || '';
+
+    return `
+      <div style="margin-bottom: 24px; ${qi > 0 ? 'padding-top: 20px; border-top: 1px solid #e2e8f0;' : ''}">
+        <div>
+          <span class="question-num">Q${q.num}</span>
+          <span class="test-badge">${testLabel}</span>
+        </div>
+        ${q.question ? `<div class="question-text">${cleanMarkdown(q.question)}</div>` :
+          `<div class="question-text" style="color:#64748b; font-style:italic;">지문의 빈칸 ${q.num}번에 들어갈 알맞은 것을 고르세요.</div>`}
+        <div class="choices">
+          ${['A', 'B', 'C', 'D'].map(letter => {
+            if (!q.choices[letter]) return '';
+            let cls = 'choice-btn';
+            if (selectedAnswer === letter) cls += ' selected';
+            if (result !== undefined) {
+              if (letter === q.answer) cls += ' correct-answer';
+              if (selectedAnswer === letter && letter !== q.answer) cls += ' incorrect';
+              if (selectedAnswer === letter && letter === q.answer) cls += ' correct';
+            }
+            return `
+              <button class="${cls}"
+                      onclick="selectAnswer(${state.currentSetIdx}, ${qi}, '${letter}')"
+                      ${result !== undefined ? 'disabled' : ''}>
+                <span class="choice-letter">${letter}</span>
+                <span>${cleanMarkdown(q.choices[letter])}</span>
+              </button>
+            `;
+          }).join('')}
+        </div>
+      </div>
+    `;
+  }
+
+  function renderExplanations(set) {
+    let html = '<div class="explanation-box show">';
+
+    // Passage translation - only show if passage is in English (not already Korean)
+    if (set.passageTranslation && !hasKoreanContent(set.passage)) {
+      html += `<div class="passage-trans"><h4 style="color:#854d0e; margin-bottom:8px;">지문 번역</h4>${cleanMarkdown(set.passageTranslation)}</div>`;
+    }
+
+    set.questions.forEach((q, qi) => {
+      html += `
+        <div style="margin-top: 16px; ${qi > 0 ? 'padding-top: 16px; border-top: 1px dashed #bbf7d0;' : ''}">
+          <h4>Q${q.num} 정답: (${q.answer})</h4>
+          ${q.explanation ? `<p>${cleanMarkdown(q.explanation)}</p>` : ''}
+          ${q.translation ? `<div class="translation"><strong>해석:</strong> ${cleanMarkdown(q.translation)}</div>` : ''}
+        </div>
+      `;
+    });
+
+    html += '</div>';
+    return html;
+  }
+
+  function renderReport() {
+    let correct = 0;
+    let total = 0;
+    const wrongSetIndices = [];
+
+    state.sets.forEach((set, si) => {
+      let setHasWrong = false;
+      set.questions.forEach((q, qi) => {
+        total++;
+        const key = `${si}_${qi}`;
+        if (state.results[key] === true) {
+          correct++;
+        } else {
+          setHasWrong = true;
+        }
+      });
+      if (setHasWrong) wrongSetIndices.push(si);
+    });
+
+    const incorrect = total - correct;
+    const pct = total > 0 ? Math.round(correct / total * 100) : 0;
+    const scoreClass = pct >= 80 ? 'score-high' : pct >= 60 ? 'score-mid' : 'score-low';
+
+    // Build per-test breakdown
+    const testBreakdown = {};
+    state.sets.forEach((set, si) => {
+      set.questions.forEach((q, qi) => {
+        const tid = q.testId;
+        if (!testBreakdown[tid]) testBreakdown[tid] = { correct: 0, total: 0 };
+        testBreakdown[tid].total++;
+        if (state.results[`${si}_${qi}`] === true) testBreakdown[tid].correct++;
+      });
+    });
+
+    app.innerHTML = `
+      <div class="header">
+        <h1>TOEIC RC Practice</h1>
+        <div class="header-btns">
+          <button class="btn btn-outline" onclick="confirmReset()">처음부터 풀기</button>
+        </div>
+      </div>
+      <div class="card fade-in report-card">
+        <div class="card-title">학습 결과</div>
+        <div class="report-score">${pct}%</div>
+        <div class="report-detail">${total}문항 중 ${correct}문항 정답</div>
+        <div class="report-chart">
+          <div class="report-stat correct">
+            <div class="num">${correct}</div>
+            <div class="label">정답</div>
+          </div>
+          <div class="report-stat incorrect">
+            <div class="num">${incorrect}</div>
+            <div class="label">오답</div>
+          </div>
+        </div>
+        ${Object.entries(testBreakdown).map(([tid, bd]) => `
+          <div style="margin-top:8px; font-size:0.9rem; color:#64748b;">
+            ${QUIZ_DATA[tid]?.label || tid}: ${bd.correct}/${bd.total} (${Math.round(bd.correct/bd.total*100)}%)
+          </div>
+        `).join('')}
+        <div style="margin-top: 30px; display:flex; gap:12px; justify-content:center; flex-wrap:wrap;">
+          ${incorrect > 0 ? `
+            <button class="btn btn-danger btn-lg" onclick="retryWrong()">
+              틀린 문항 다시 풀기 (${incorrect}문항)
+            </button>
+          ` : '<div style="color:#10b981; font-weight:700; font-size:1.2rem;">축하합니다! 전부 맞았습니다!</div>'}
+          <button class="btn btn-secondary btn-lg" onclick="confirmReset()">처음부터 풀기</button>
+        </div>
+      </div>
+    `;
+
+    // Save to history
+    saveHistory({
+      date: new Date().toISOString(),
+      tests: state.selectedTests.map(t => QUIZ_DATA[t]?.label || t),
+      total,
+      correct,
+      pct,
+      isRetry: state.isRetryMode
+    });
+  }
+
+  function renderHistory() {
+    const history = getHistory().reverse();
+
+    app.innerHTML = `
+      <div class="header">
+        <h1>TOEIC RC Practice</h1>
+        <div class="header-btns">
+          <button class="btn btn-outline" onclick="goHome()">홈으로</button>
+        </div>
+      </div>
+      <div class="card fade-in">
+        <div class="card-title">학습 리포트</div>
+        ${history.length === 0 ? '<p style="color:#64748b; text-align:center; padding:40px;">아직 학습 기록이 없습니다.</p>' : `
+          <div style="overflow-x: auto;">
+            <table class="history-table">
+              <thead>
+                <tr>
+                  <th>날짜</th>
+                  <th>회차</th>
+                  <th>문항수</th>
+                  <th>정답</th>
+                  <th>점수</th>
+                  <th>유형</th>
+                </tr>
+              </thead>
+              <tbody>
+                ${history.map(h => {
+                  const date = new Date(h.date);
+                  const dateStr = `${date.getMonth()+1}/${date.getDate()} ${date.getHours()}:${String(date.getMinutes()).padStart(2,'0')}`;
+                  const scoreClass = h.pct >= 80 ? 'score-high' : h.pct >= 60 ? 'score-mid' : 'score-low';
+                  return `
+                    <tr>
+                      <td>${dateStr}</td>
+                      <td>${h.tests.join(', ')}</td>
+                      <td>${h.total}</td>
+                      <td>${h.correct}</td>
+                      <td><span class="score-badge ${scoreClass}">${h.pct}%</span></td>
+                      <td>${h.isRetry ? '오답 재풀기' : '전체'}</td>
+                    </tr>
+                  `;
+                }).join('')}
+              </tbody>
+            </table>
+          </div>
+          <div style="text-align:center; margin-top:20px;">
+            <button class="btn btn-danger" onclick="clearHistory()">기록 초기화</button>
+          </div>
+        `}
+      </div>
+    `;
+  }
+
+  // Actions
+  window.toggleTest = function(id) {
+    const idx = state.selectedTests.indexOf(id);
+    if (idx >= 0) state.selectedTests.splice(idx, 1);
+    else state.selectedTests.push(id);
+    render();
+  };
+
+  window.startQuiz = function() {
+    if (state.selectedTests.length === 0) return;
+
+    // Collect all question sets from selected tests
+    let allSets = [];
+    state.selectedTests.forEach(testId => {
+      const testData = QUIZ_DATA[testId];
+      testData.sets.forEach(set => {
+        // Deep copy and add testId to questions
+        const setCopy = JSON.parse(JSON.stringify(set));
+        setCopy.questions.forEach(q => { q.testId = testId; });
+        allSets.push(setCopy);
+      });
+    });
+
+    // Shuffle sets
+    state.sets = shuffle(allSets);
+    state.currentSetIdx = 0;
+    state.answers = {};
+    state.results = {};
+    state.revealed = {};
+    state.totalQuestions = allSets.reduce((sum, s) => sum + s.questions.length, 0);
+    state.isRetryMode = false;
+    state.screen = 'quiz';
+    render();
+    window.scrollTo(0, 0);
+  };
+
+  window.selectAnswer = function(setIdx, qIdx, letter) {
+    const key = `${setIdx}_${qIdx}`;
+    if (state.results[key] !== undefined) return; // Already answered
+    state.answers[key] = letter;
+    render();
+  };
+
+  window.checkAnswers = function() {
+    const set = state.sets[state.currentSetIdx];
+    let allAnswered = true;
+
+    set.questions.forEach((q, qi) => {
+      const key = `${state.currentSetIdx}_${qi}`;
+      if (!state.answers[key]) {
+        allAnswered = false;
+      }
+    });
+
+    if (!allAnswered) {
+      // Check only answered questions
+      let hasAny = false;
+      set.questions.forEach((q, qi) => {
+        const key = `${state.currentSetIdx}_${qi}`;
+        if (state.answers[key]) {
+          hasAny = true;
+        }
+      });
+      if (!hasAny) {
+        alert('답을 선택해주세요.');
+        return;
+      }
+    }
+
+    // Record results
+    set.questions.forEach((q, qi) => {
+      const key = `${state.currentSetIdx}_${qi}`;
+      const selected = state.answers[key];
+      if (selected) {
+        state.results[key] = selected === q.answer;
+      } else {
+        state.results[key] = false; // Unanswered = wrong
+      }
+    });
+
+    state.revealed[state.currentSetIdx] = true;
+    render();
+  };
+
+  window.showExplanation = function() {
+    const set = state.sets[state.currentSetIdx];
+    // Mark unanswered as wrong
+    set.questions.forEach((q, qi) => {
+      const key = `${state.currentSetIdx}_${qi}`;
+      if (state.results[key] === undefined) {
+        const selected = state.answers[key];
+        state.results[key] = selected ? selected === q.answer : false;
+      }
+    });
+    state.revealed[state.currentSetIdx] = true;
+    render();
+  };
+
+  window.nextSet = function() {
+    if (state.currentSetIdx < state.sets.length - 1) {
+      state.currentSetIdx++;
+      render();
+      window.scrollTo(0, 0);
+    }
+  };
+
+  window.prevSet = function() {
+    if (state.currentSetIdx > 0) {
+      state.currentSetIdx--;
+      render();
+      window.scrollTo(0, 0);
+    }
+  };
+
+  window.finishQuiz = function() {
+    // Auto-mark any unanswered questions
+    state.sets.forEach((set, si) => {
+      set.questions.forEach((q, qi) => {
+        const key = `${si}_${qi}`;
+        if (state.results[key] === undefined) {
+          const selected = state.answers[key];
+          state.results[key] = selected ? selected === q.answer : false;
+        }
+      });
+    });
+    state.screen = 'report';
+    render();
+    window.scrollTo(0, 0);
+  };
+
+  window.retryWrong = function() {
+    // Collect sets that have wrong answers
+    const wrongSets = [];
+    state.sets.forEach((set, si) => {
+      const wrongQs = [];
+      set.questions.forEach((q, qi) => {
+        const key = `${si}_${qi}`;
+        if (state.results[key] !== true) {
+          wrongQs.push(JSON.parse(JSON.stringify(q)));
+        }
+      });
+      if (wrongQs.length > 0) {
+        const setCopy = JSON.parse(JSON.stringify(set));
+        setCopy.questions = wrongQs;
+        wrongSets.push(setCopy);
+      }
+    });
+
+    state.sets = shuffle(wrongSets);
+    state.currentSetIdx = 0;
+    state.answers = {};
+    state.results = {};
+    state.revealed = {};
+    state.totalQuestions = wrongSets.reduce((sum, s) => sum + s.questions.length, 0);
+    state.isRetryMode = true;
+    state.screen = 'quiz';
+    render();
+    window.scrollTo(0, 0);
+  };
+
+  window.confirmReset = function() {
+    if (Object.keys(state.results).length > 0) {
+      if (!confirm('진행 상황이 초기화됩니다. 처음부터 시작하시겠습니까?')) return;
+    }
+    goHome();
+  };
+
+  window.goHome = function() {
+    state.screen = 'select';
+    state.sets = [];
+    state.answers = {};
+    state.results = {};
+    state.revealed = {};
+    render();
+    window.scrollTo(0, 0);
+  };
+
+  window.showHistory = function() {
+    state.screen = 'history';
+    render();
+    window.scrollTo(0, 0);
+  };
+
+  window.clearHistory = function() {
+    if (confirm('모든 학습 기록을 삭제하시겠습니까?')) {
+      localStorage.removeItem(STORAGE_KEY);
+      render();
+    }
+  };
+
+  // Initial render
+  render();
+})();
+</script>
+</body>
+</html>
