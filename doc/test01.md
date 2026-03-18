@@ -105,7 +105,7 @@
 
 ---
 
-107. If you have not yet renewed your membership for our magazine, you should sign up online today ------- visit the nearest distribution center in person. 
+107. If you have not yet renewed your membership for our magazine, you should ------- sign up online today or visit the nearest distribution center in person. 
 (A) neither 
 (B) either 
 (C) yet 
