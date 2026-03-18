@@ -144,7 +144,9 @@ function parseStandaloneQuestions(text) {
     }
 
     const block = lines.slice(qStart, qEnd).join('\n');
-    const questionText = lines[qStart].replace(new RegExp('^' + qNum + '\\.\\s+'), '').replace(/\*\*/g, '').trim();
+    let questionText = lines[qStart].replace(new RegExp('^' + qNum + '\\.\\s+'), '').replace(/\*\*/g, '').trim();
+    // Strip answer choices that appear at the end of the question line, e.g. "question text (A) choice"
+    questionText = questionText.replace(/\s*\(A\)\s.*$/, '').trim();
 
     const choices = extractChoicesFromText(block);
     const answer = extractAnswerFromText(block);
@@ -320,11 +322,16 @@ function extractQuestionFromText(sectionText, qNum) {
     questionText = ''; // The blank is in the passage
   }
 
+  // Strip answer choices that appear at the end of the question line, e.g. "question text (A) choice"
+  if (questionText) {
+    questionText = questionText.replace(/\s*\(A\)\s.*$/, '').trim();
+  }
+
   // For multi-line question text (Part 7)
   if (questionText && !questionText.match(/\(A\)/) && !questionText.match(/정답/) && !questionText.match(/해설/)) {
     for (let j = 1; j < qLines.length; j++) {
       const nextL = qLines[j].trim();
-      if (nextL.match(/^\(A\)/) || nextL.match(/^\*?\*?\(A\)/) || nextL === '' || nextL === '---') break;
+      if (nextL.match(/^\(A\)/) || nextL.match(/^\*?\*?\s*\(A\)/) || nextL === '' || nextL === '---') break;
       if (nextL.match(/정답|해설/)) break;
       questionText += ' ' + nextL.replace(/\*\*/g, '');
     }
