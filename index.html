@@ -105,6 +105,16 @@ body { font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif; b
 /* Navigation */
 .nav-btns { display: flex; justify-content: space-between; margin-top: 20px; }
 
+/* Mode Selection */
+.mode-select { display: flex; gap: 12px; margin: 16px 0; }
+.mode-option { flex: 1; padding: 18px; border: 3px solid #e2e8f0; border-radius: 14px; cursor: pointer; transition: all 0.2s; text-align: center; }
+.mode-option:hover { border-color: #667eea; background: #f0f0ff; }
+.mode-option.selected { border-color: #667eea; background: #eef2ff; }
+.mode-option .mode-icon { font-size: 1.5rem; margin-bottom: 6px; }
+.mode-option .mode-label { font-size: 1.1rem; font-weight: 700; color: #667eea; }
+.mode-option .mode-desc { font-size: 0.85rem; color: #64748b; margin-top: 4px; }
+.study-badge { display: inline-block; background: #8b5cf6; color: white; padding: 4px 10px; border-radius: 8px; font-size: 0.8rem; font-weight: 600; margin-left: 8px; }
+
 /* Animations */
 @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 .fade-in { animation: fadeIn 0.3s ease; }
@@ -148,6 +158,7 @@ body { font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif; b
     totalQuestions: 0,
     isRetryMode: false,
     wrongSets: [],
+    studyMode: false,
   };
 
   // Utility
@@ -275,11 +286,24 @@ body { font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif; b
           `).join('')}
         </div>
       </div>
+      <div class="card fade-in">
+        <div class="card-title">모드를 선택하세요</div>
+        <div class="mode-select">
+          <div class="mode-option ${!state.studyMode ? 'selected' : ''}" onclick="setStudyMode(false)">
+            <div class="mode-label">테스트 모드</div>
+            <div class="mode-desc">문제를 풀고 정답을 확인</div>
+          </div>
+          <div class="mode-option ${state.studyMode ? 'selected' : ''}" onclick="setStudyMode(true)">
+            <div class="mode-label">공부 모드</div>
+            <div class="mode-desc">정답과 해설을 바로 확인</div>
+          </div>
+        </div>
+      </div>
       <div class="card fade-in" style="text-align:center;">
         <button class="btn btn-primary btn-lg"
                 onclick="startQuiz()"
                 ${!canStart ? 'disabled' : ''}>
-          테스트 시작 (${filteredCount}문항)
+          ${state.studyMode ? '공부 시작' : '테스트 시작'} (${filteredCount}문항)
         </button>
       </div>
     `;
@@ -316,7 +340,7 @@ body { font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif; b
         </div>
       </div>
       <div class="card fade-in">
-        <div class="progress-text">${answeredCount} / ${totalQ} 문항 완료 (세트 ${state.currentSetIdx + 1}/${state.sets.length})</div>
+        <div class="progress-text">${state.studyMode ? '<span class="study-badge">공부 모드</span> ' : ''}${answeredCount} / ${totalQ} 문항 완료 (세트 ${state.currentSetIdx + 1}/${state.sets.length})</div>
         <div class="progress-bar"><div class="progress-fill" style="width:${progressPct}%"></div></div>
       </div>
       <div class="card fade-in">
@@ -406,6 +430,48 @@ body { font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif; b
     return html;
   }
 
+  function renderReportContent(total, correct, incorrect, pct, testBreakdown) {
+    if (state.studyMode) {
+      return `
+        <div class="card-title">공부 완료</div>
+        <div class="report-score" style="color:#8b5cf6;">DONE</div>
+        <div class="report-detail">${total}문항 학습 완료</div>
+        <div style="margin-top: 30px; display:flex; gap:12px; justify-content:center; flex-wrap:wrap;">
+          <button class="btn btn-secondary btn-lg" onclick="confirmReset()">처음부터 풀기</button>
+        </div>
+      `;
+    }
+
+    let breakdownHtml = Object.entries(testBreakdown).map(([tid, bd]) =>
+      `<div style="margin-top:8px; font-size:0.9rem; color:#64748b;">${QUIZ_DATA[tid]?.label || tid}: ${bd.correct}/${bd.total} (${Math.round(bd.correct/bd.total*100)}%)</div>`
+    ).join('');
+
+    let wrongBtnHtml = incorrect > 0
+      ? `<button class="btn btn-danger btn-lg" onclick="retryWrong()">틀린 문항 다시 풀기 (${incorrect}문항)</button>`
+      : '<div style="color:#10b981; font-weight:700; font-size:1.2rem;">축하합니다! 전부 맞았습니다!</div>';
+
+    return `
+      <div class="card-title">학습 결과</div>
+      <div class="report-score">${pct}%</div>
+      <div class="report-detail">${total}문항 중 ${correct}문항 정답</div>
+      <div class="report-chart">
+        <div class="report-stat correct">
+          <div class="num">${correct}</div>
+          <div class="label">정답</div>
+        </div>
+        <div class="report-stat incorrect">
+          <div class="num">${incorrect}</div>
+          <div class="label">오답</div>
+        </div>
+      </div>
+      ${breakdownHtml}
+      <div style="margin-top: 30px; display:flex; gap:12px; justify-content:center; flex-wrap:wrap;">
+        ${wrongBtnHtml}
+        <button class="btn btn-secondary btn-lg" onclick="confirmReset()">처음부터 풀기</button>
+      </div>
+    `;
+  }
+
   function renderReport() {
     let correct = 0;
     let total = 0;
@@ -448,44 +514,21 @@ body { font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif; b
         </div>
       </div>
       <div class="card fade-in report-card">
-        <div class="card-title">학습 결과</div>
-        <div class="report-score">${pct}%</div>
-        <div class="report-detail">${total}문항 중 ${correct}문항 정답</div>
-        <div class="report-chart">
-          <div class="report-stat correct">
-            <div class="num">${correct}</div>
-            <div class="label">정답</div>
-          </div>
-          <div class="report-stat incorrect">
-            <div class="num">${incorrect}</div>
-            <div class="label">오답</div>
-          </div>
-        </div>
-        ${Object.entries(testBreakdown).map(([tid, bd]) => `
-          <div style="margin-top:8px; font-size:0.9rem; color:#64748b;">
-            ${QUIZ_DATA[tid]?.label || tid}: ${bd.correct}/${bd.total} (${Math.round(bd.correct/bd.total*100)}%)
-          </div>
-        `).join('')}
-        <div style="margin-top: 30px; display:flex; gap:12px; justify-content:center; flex-wrap:wrap;">
-          ${incorrect > 0 ? `
-            <button class="btn btn-danger btn-lg" onclick="retryWrong()">
-              틀린 문항 다시 풀기 (${incorrect}문항)
-            </button>
-          ` : '<div style="color:#10b981; font-weight:700; font-size:1.2rem;">축하합니다! 전부 맞았습니다!</div>'}
-          <button class="btn btn-secondary btn-lg" onclick="confirmReset()">처음부터 풀기</button>
-        </div>
+        ${renderReportContent(total, correct, incorrect, pct, testBreakdown)}
       </div>
     `;
 
-    // Save to history
-    saveHistory({
-      date: new Date().toISOString(),
-      tests: state.selectedTests.map(t => QUIZ_DATA[t]?.label || t),
-      total,
-      correct,
-      pct,
-      isRetry: state.isRetryMode
-    });
+    // Don't save study mode to history (100% is misleading)
+    if (!state.studyMode) {
+      saveHistory({
+        date: new Date().toISOString(),
+        tests: state.selectedTests.map(t => QUIZ_DATA[t]?.label || t),
+        total,
+        correct,
+        pct,
+        isRetry: state.isRetryMode
+      });
+    }
   }
 
   function renderHistory() {
@@ -525,7 +568,7 @@ body { font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif; b
                       <td>${h.total}</td>
                       <td>${h.correct}</td>
                       <td><span class="score-badge ${scoreClass}">${h.pct}%</span></td>
-                      <td>${h.isRetry ? '오답 재풀기' : '전체'}</td>
+                      <td>${h.isStudy ? '공부' : h.isRetry ? '오답 재풀기' : '전체'}</td>
                     </tr>
                   `;
                 }).join('')}
@@ -554,6 +597,21 @@ body { font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif; b
     else state.selectedParts.push(partId);
     render();
   };
+
+  window.setStudyMode = function(enabled) {
+    state.studyMode = enabled;
+    render();
+  };
+
+  function revealSetForStudy(setIdx) {
+    const set = state.sets[setIdx];
+    set.questions.forEach((q, qi) => {
+      const key = `${setIdx}_${qi}`;
+      state.answers[key] = q.answer;
+      state.results[key] = true;
+    });
+    state.revealed[setIdx] = true;
+  }
 
   window.startQuiz = function() {
     if (state.selectedTests.length === 0) return;
@@ -592,6 +650,9 @@ body { font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif; b
     state.totalQuestions = allSets.reduce((sum, s) => sum + s.questions.length, 0);
     state.isRetryMode = false;
     state.screen = 'quiz';
+    if (state.studyMode) {
+      revealSetForStudy(0);
+    }
     render();
     window.scrollTo(0, 0);
   };
@@ -684,6 +745,9 @@ body { font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif; b
       }
       // No answer selected or already revealed: move to next
       state.currentSetIdx++;
+      if (state.studyMode) {
+        revealSetForStudy(state.currentSetIdx);
+      }
       render();
       window.scrollTo(0, 0);
     }
