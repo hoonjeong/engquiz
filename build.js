@@ -331,7 +331,7 @@ function extractQuestionFromText(sectionText, qNum) {
   if (questionText && !questionText.match(/\(A\)/) && !questionText.match(/정답/) && !questionText.match(/해설/)) {
     for (let j = 1; j < qLines.length; j++) {
       const nextL = qLines[j].trim();
-      if (nextL.match(/^\(A\)/) || nextL.match(/^\*?\*?\s*\(A\)/) || nextL === '' || nextL === '---') break;
+      if (nextL.match(/^\(A\)/) || nextL.match(/^\*?\*?\s*\(A\)/) || nextL.match(/^\([B-D]\)/) || nextL.match(/^\*?\*?\s*\([B-D]\)/) || nextL === '' || nextL === '---') break;
       if (nextL.match(/정답|해설/)) break;
       questionText += ' ' + nextL.replace(/\*\*/g, '');
     }
