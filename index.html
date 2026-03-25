@@ -748,7 +748,11 @@ body { font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif; b
           });
 
           if (allCorrect) {
-            // All correct: skip to next question directly without marking
+            // All correct: record results for progress count, but don't reveal
+            set.questions.forEach((q, qi) => {
+              const key = `${state.currentSetIdx}_${qi}`;
+              if (state.answers[key]) state.results[key] = true;
+            });
             state.currentSetIdx++;
             if (state.studyMode) {
               revealSetForStudy(state.currentSetIdx);
