@@ -739,23 +739,16 @@ body { font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif; b
         const hasAnyAnswer = set.questions.some((q, qi) => state.answers[`${state.currentSetIdx}_${qi}`]);
 
         if (hasAnyAnswer) {
-          // Auto-check answers
+          // Check if all answers are correct
           let allCorrect = true;
           set.questions.forEach((q, qi) => {
             const key = `${state.currentSetIdx}_${qi}`;
             const selected = state.answers[key];
-            if (selected) {
-              state.results[key] = selected === q.answer;
-              if (selected !== q.answer) allCorrect = false;
-            } else {
-              state.results[key] = false;
-              allCorrect = false;
-            }
+            if (!selected || selected !== q.answer) allCorrect = false;
           });
-          state.revealed[state.currentSetIdx] = true;
 
           if (allCorrect) {
-            // All correct: skip to next question directly
+            // All correct: skip to next question directly without marking
             state.currentSetIdx++;
             if (state.studyMode) {
               revealSetForStudy(state.currentSetIdx);
@@ -765,7 +758,13 @@ body { font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif; b
             return;
           }
 
-          // Has wrong answers: stay on page to show results
+          // Has wrong answers: show results and stay on page
+          set.questions.forEach((q, qi) => {
+            const key = `${state.currentSetIdx}_${qi}`;
+            const selected = state.answers[key];
+            state.results[key] = selected ? selected === q.answer : false;
+          });
+          state.revealed[state.currentSetIdx] = true;
           render();
           window.scrollTo(0, 0);
           return;
